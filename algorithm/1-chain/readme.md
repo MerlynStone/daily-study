@@ -1,0 +1,3 @@
+两种链表的创建形式，一种for循环 一种是使用rudeceRight
+rudeceRight的性能优于for循环
+具体性能对比后面展开
