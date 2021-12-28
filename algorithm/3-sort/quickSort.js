@@ -36,5 +36,4 @@ function swap(array, i, j) {
     let tem = array[i];
     array[i] = array[j]
     array[j] = tem
-
 }
