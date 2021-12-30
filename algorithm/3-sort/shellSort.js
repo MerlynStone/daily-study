@@ -7,6 +7,7 @@ function shellSort(arr) {
     for (gap; gap > 0; gap = Math.floor(gap / 2)) {
         for (let i = gap; i < len; i++) {
             let tem = arr[i]
+            // 未通过交换的方式、通过移动的方式
             for (var j = i - gap; j >= 0 && arr[j] > tem; j -= gap) {
                 arr[j + gap] = arr[i]
             }
