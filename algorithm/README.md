@@ -1,4 +1,28 @@
 # 算法日常--倒序方式
+### 有效的括号 2022年1月12日
+```js
+let bracketsStr = '{}{}([])'
+let res = true
+const stack = [];
+const map = new Map([
+    ['(', ')'],
+    ['{', '}'],
+    ['[', ']']
+])
+for (const str of bracketsStr) {
+    if (map.has(str)) {
+        if (!stack.length || (stack[stack.length - 1] !== map.get(str))) {
+            res = false
+            break
+        }
+        stack.pop()
+    } else {
+        stack.push(str)
+    }
+}
+console.log(stack.length === 0 || res)
+
+```
 ### 计数排序 2022年1月12日
 ```js
 let arr = [1, 2, 7, 7, 8, 3, 5, 9, 4]
