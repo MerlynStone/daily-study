@@ -1,4 +1,5 @@
 # 算法日常--倒序方式
+# 第二套
 ### 有效的括号 2022年1月12日
 ```js
 let bracketsStr = '{}{}([])'
@@ -142,7 +143,8 @@ var sortedArrayToBST = function (nums) {
 var ss = sortedArrayToBST([-10, -3, 0, 5, 9]);
 console.log(ss); // 打印结果
 ```
-### 2021.10.29几种排序算法  第二套
+# 第一套
+### 2021.10.29几种排序算法  
 ```js
 // 希尔排序
 let arr = [1, 1, 35, 5, 6, 5, 56, 35]
