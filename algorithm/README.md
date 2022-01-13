@@ -1,4 +1,21 @@
 # 算法日常--倒序方式
+# 第三套
+###  反转链表
+###  二叉树反转 2022年1月14日00:23:37
+ 1.使用数组转二叉树函数  
+ 2.反转二叉树
+ 3.前序遍历二叉树转数组
+ ```js
+ function invertTree(node){
+     if(!node)return;
+     let tem=node.left;
+     node.left=node.right;
+     node.right=temp;
+     invertTree(node.left)     //递归反转
+     invertTree(node.right)
+     return node;
+ }
+ ```  
 # 第二套
 ### 有效的括号 2022年1月12日
 ```js
@@ -115,7 +132,8 @@ function preOrderTraverse(node){
     if(!node) return [];
     let result = [];
     result.push(node.v)
-    result.push(...preOrderTraverse(node.left))
+    result.push(...preOrderTraverse(node.left)    result.push(...preOrde
+    rTraverse(node.left)))
     result.push(...preOrderTraverse(node.right))
     return result;
 }
@@ -135,7 +153,8 @@ var sortedArrayToBST = function (nums) {
   }
   var mid = parseInt(nums.length / 2); // 计算中间位置,数组下标从0开始，所以parseInt取整
   var root = new TreeNode(nums[mid]);  // 中间位置的元素作为树根
-  root.left = sortedArrayToBST(nums.slice(0, mid)); // 递归生成树的左子树
+  root.left   root.left = sortedArrayToBST(nums.slice(0
+  , mid)); // 递归生成树的左子树= sortedArrayToBST(nums.slice(0, mid)); // 递归生成树的左子树
   root.right = sortedArrayToBST(nums.slice(mid + 1)); // 递归生成树的右子树
   return root; // 递归结束后返回树
 }
@@ -206,7 +225,8 @@ let arr = [1, 35, 5, 6, 5, 56, 35]
 // console.log(quickSort(arr))
 quickSort(arr)
 console.log(quickSort(arr))
-// left 左边界 right 右边界 
+// left /
+/ left 左边界 right 右边界 左边界 right 右边界 
 function quickSort(array, left, right) {
     var len = array.length
     var partitionIndex // 基准
@@ -282,8 +302,7 @@ function swap(array, i, j) {
     array[i] = array[j]
     array[j] = tem
 }
-```
-
+```  
 ### 快乐数
 ```js
 // 通过哈希表达方式解题
@@ -306,9 +325,7 @@ var isHappy = function (n) {
     }
     return true
 }
-```
-
-
+```  
 ### 链表的实现方法
 1
 ```js
