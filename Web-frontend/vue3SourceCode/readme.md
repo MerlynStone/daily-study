@@ -3,6 +3,7 @@
 安装依赖 pnpm    
 npm install -g pnpm
 nvm 管理node版本
+nvm isntall v16.13.1
 ```bash
 git clone git@github.com:vuejs/vue-next.git
 ```
@@ -25,4 +26,21 @@ pnpm serve
 #### packages
 #### scripts  rollup 打包
  scripts/dev.js  
-# 进度到 vue3.0 1-4
+ > vue  
+ >> reactivity 响应式
+ > compiler-dom ——compiler-core  编译器
+ >runtime-dom_——runtime-core  运行时
+
+
+## vue初始流程分析
+* createApp() 应用程序实例创建过程：如何创建实例，实例长什么样？  
+  createAppAPI()函数
+  实例是对象 {use(),component(){},mount(){}}
+  【知识点】工厂函数
+* app.mount() 挂载过程：挂载都做了什么？  
+  1创建根节点虚拟vnode  
+  2.执行render  生成的vnode传递给patch函数转换成dom，并追加到宿主元素  
+  结论：传入组件数据和状态转换为dom并追加到宿主元素  
+查看调用栈及调试
+
+# 进度到 vue3.0 2-6
