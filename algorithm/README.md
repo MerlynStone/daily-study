@@ -1,6 +1,18 @@
 # 算法日常--倒序方式
 # 第三套
-###  反转链表
+###  反转链表 2022年1月14日21:30:01
+```js
+// 关键代码
+function reversseList(head) {
+    let prev = null
+    let curr = head
+    while (curr) {
+        const next = head.next;
+        prev = curr;
+        curr = next
+    }
+}
+```
 ###  二叉树反转 2022年1月14日00:23:37
  1.使用数组转二叉树函数  
  2.反转二叉树
