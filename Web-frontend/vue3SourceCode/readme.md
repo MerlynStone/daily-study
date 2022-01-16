@@ -27,8 +27,8 @@ pnpm serve
 #### scripts  rollup 打包
  scripts/dev.js  
  > vue  
- >> reactivity 响应式
- > compiler-dom ——compiler-core  编译器
+ >> reactivity 响应式  
+ > compiler-dom ——compiler-core  编译器  
  >runtime-dom_——runtime-core  运行时
 
 
@@ -47,4 +47,8 @@ pnpm serve
 * 实例方法
 * 简化API，一致性增强
 * 动机：ts强类型支持更好，避免全局污染，简化，增强一致性，利于程序变的更小
-# 进度到 vue3.0 2-6
+###  vue3更新流程分析
+* setupRenderEffect建立更新机制
+* 当前组件响应式数据发生变化重新执行函数更新
+* 函数内部会调用patch
+# 进度到 VUE 3.0 -3-3
