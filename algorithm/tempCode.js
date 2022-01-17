@@ -1,3 +1,70 @@
+// 相交链表
+// 链表节点
+class Node {
+    constructor(val) {
+        this.val = val;
+        this.next = null
+    }
+}
+class SingleLinkedList {
+    constructor() {
+        this.head = null
+    }
+    // 链表尾部添加node
+    add(val) {
+        let node = new Node(val);
+        if (this.head == null) {
+            this.head = node
+        } else {
+            let cur = this.head;
+            while (cur.head !== null) {
+                cur = cur.next;
+            }
+            cur.next = node;
+        }
+    }
+    print() {
+        let data = [];
+        let cur = this.head
+        while (cur) {
+            data.push(cur.val);
+            cur = cur.next;
+        }
+        console.log(JSON.stringify(data))
+    }
+}
+// 旋转链表
+function rotateRight(head, k) {
+    // 当k===0 没有head 没有next
+    if (k === 0 || !head || !head.next) {
+        return head;
+    }
+    // 记录链表长度，确定原始链表的尾部节点
+    let n = 1
+    let cur = head
+    while (cur.next) {
+        cur = cur.next
+        n++
+    }
+    // 单项链表转换成循环链表，
+    cur.next = head
+    let add = n - k % n;
+    while (add) {
+        cur = cur.next
+        add--
+    }
+    const ret = cur.next
+    cur.next = null
+    return ret;
+
+}
+const singleLinkedList1 = new SingleLinkedList()
+const input = [[1, 2, 3, 4, 6, 3], 4]
+for (let index = 0; index < input[0].length; index++) {
+    singleLinkedList1.add(input[0][index])
+}
+singleLinkedList1.head = rotateRight(singleLinkedList1.head, input[1])
+singleLinkedList1.print();
 // 算法 轨道相交---通过哈希表
 let headA, headBl;
 let listA = [4, 1, 8, 4, 5]
