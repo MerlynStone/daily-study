@@ -53,6 +53,9 @@ function rotateRight(head, k) {
     // 单项链表转换成循环链表，
     cur.next = head
     let add = n - k % n;
+    if(add===0){
+        return head
+    }
     while (add) {
         cur = cur.next
         add--
