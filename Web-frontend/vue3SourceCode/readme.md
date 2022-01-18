@@ -51,4 +51,11 @@ pnpm serve
 * setupRenderEffect建立更新机制
 * 当前组件响应式数据发生变化重新执行函数更新
 * 函数内部会调用patch
+### vue3 composition API（逻辑复用、可维护性、消灭this）
+- setup（props，{emit，slots，attrs }）
+- 声明周期钩子
+- getCurrentInstance
+- Project/inject 
+体验：结合reactivity API
+### vue3 reactivity API
 # 进度到 VUE 3.0 -3-3
