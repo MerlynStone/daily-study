@@ -55,8 +55,12 @@ pnpm serve
 - setup（props，{emit，slots，attrs }）
 - 声明周期钩子
 - getCurrentInstance
-- Project/inject 
-执行的时刻，为什么没有created钩子？传入的setup参数中props，ctx是什么？如果和data中的数据冲突Vue3怎么处理？
+- Project/inject   
+执行的时刻，为什么没有created钩子？  
+传入的setup参数中props，ctx是什么？  
+如果和data中的数据冲突Vue3怎么处理？  
+在setup中声明周期的钩子是如何工作的
+
 体验：结合reactivity API
-### vue3 reactivity API
-# 进度到 VUE 3.0 -3-4-2
+### vue3 reactivity API 探究
+# 进度到 VUE 3.0 6-1
