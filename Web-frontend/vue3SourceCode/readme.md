@@ -63,4 +63,10 @@ pnpm serve
 
 体验：结合reactivity API
 ### vue3 reactivity API 探究
+- 基础API 
+  - reactive
+  - readonly
+- Refs
+- computed和watch
+- effect scoped API
 # 进度到 VUE 3.0 6-1
