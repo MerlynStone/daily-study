@@ -16,9 +16,20 @@ react 17 和之前版本在使用时的差异：react 17中增加了JSX-runtime�
 5.在JSX中支持插值表达式-在内容中做插值 在属性中做插值  
 - 5.1  在插值表达式中可以接收一个js表达式 变量 运算 函数
 - 5.2  如果是在元素内容中做插值，运算符必须是ReactNode  
-6. JSX中属性的写法，不一定和HTML一致  
+6 JSX中属性的写法，不一定和HTML一致  
 - 6.1 class --->className  
 - 6.2 如果属性名由两个及以上的单词组成，一般从第二个单词首字母开始大写
 - 6.3注意style的值不是字符串而是对象  
 7 JSX最终会变成虚拟DOM JSX在输出的时候必须有且只有一个顶层容器元素 Fragment:<Fragment></Fragment>  或 <></>  
-TODO 第一节2：15:00 组件
+## 类组件  
+1.组件必须继承自React.Component
+2.组件必须有一个render方法
+3.render方法的返回值是该组件的视图
+ state状态:  
+ 1.React的组件类似状态机，状态的值不一样，组件会呈现出不同的显示，当组件的状态有修改时，视图会进行重新渲染  
+ 2.在React state应该是不可变值，修改state的唯一方式是调用组件的setState方法
+ 事件：
+ 1.react 的事件写法 类似js的行间事件
+ 2.事件名第二个单词的首字母大写
+ 3.react的事件中的this指向为undefined（使用箭头函数或者绑定undefined）
+ 4.阻止默认事件要是有event.preventDefault();
