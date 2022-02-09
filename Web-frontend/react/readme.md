@@ -20,5 +20,5 @@ react 17 和之前版本在使用时的差异：react 17中增加了JSX-runtime�
 - 6.1 class --->className  
 - 6.2 如果属性名由两个及以上的单词组成，一般从第二个单词首字母开始大写
 - 6.3注意style的值不是字符串而是对象  
-7 JSX最终会变成虚拟DOM JSX在输出的时候必须有且只有一个顶层容器元素 Fragment:<Fragment></Fragment>  或 <></>
+7 JSX最终会变成虚拟DOM JSX在输出的时候必须有且只有一个顶层容器元素 Fragment:<Fragment></Fragment>  或 <></>  
 TODO 第一节2：15:00 组件
