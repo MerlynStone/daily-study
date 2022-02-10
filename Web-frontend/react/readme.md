@@ -32,4 +32,22 @@ react 17 和之前版本在使用时的差异：react 17中增加了JSX-runtime�
  1.react 的事件写法 类似js的行间事件
  2.事件名第二个单词的首字母大写
  3.react的事件中的this指向为undefined（使用箭头函数或者绑定undefined）
- 4.阻止默认事件要是有event.preventDefault();
+ 4.阻止默认事件要是有event.preventDefault();  
+## React 类组件详解
+1.父级向子级通信：  
+把数据添加到子组件的属性中，然后子组件从props属性中获取父级传递过来的数据  
+2.子级向父级进行通信  
+在react 中数据永远只能自上向下进行传递，如果子级向父级传递则需要在父级中定义相关的回调方法，然后讲回调方法传递给子级，子级调用父级的回调来向父级进行通信。(或者使用三方库)  
+setState(updater,[callback])  
+updater更新数据 function/object
+-function  返回值是更新的状态
+-object 要更新的状态
+-callback 更新成功后的回调function  
+-批处理 react通常会集齐一批需要更新的状态，然后一次性更新来保证渲染的性能  
+-浅合并 Object.assign()
+-调用setState之后 会触发声明周期，重新渲染组件
+批处理：
+1.正常情况下，在一个操作中多次调用setState react会合并这些更新，只更新一次组件  
+state是不可变值修改state的唯一办法是调用setState根据原有的state映射出一个新的state  
+setState 在批更新的机制下表现为异步，否则为同步  
+setState 可以控制的方法中(react的声明周期中，react事件)表现为异步，在微任务中及DOM中表现为同步  1:21:00
