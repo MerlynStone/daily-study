@@ -73,6 +73,23 @@ context 用于实现跨组件信息传递
 provider 用于向包在provider中子孙后代进行信息传递，在provider的 value属性中，定义想要传递的信息  
 将provider对应的context对象，绑定在类的contextType属性中，组件实例化是就会查找类的contextType属性，并将对应的context中接收数据，放入到context数据中  
 ## 函数组件  
+接收一个props参数返回一个reactNodes  
 function 组件名（props）{
     return 要构造的虚拟DOM
 } 注意：函数组件中，没有this(this为underfind)在16.7之前函数组件中没有声明周期和state 所以又被称只为纯渲染组件或无状态组件  
+-使用函数组件时，尽量减少在函数中声明子函数，否则组件每次更新时都会重新创建这个函数  
+React hooks（钩子）  
+react 16.8新增的功能，无须编写类即可使用状态和其他React功能   
+*** 函数组件更新，会重新执行整个函数  
+### 常用hook
+- useState
+  const [state,setState] = useState(initialState)  
+  const [状态,修改状态的方法] = useState(初始值)
+  - 在同一个组件中可以使用useState定义多个状态
+  - 注意useState返回的状态是引用类型，setState方法不会进行对象合并
+  - 注意useState返回的setState方法同样是异步方法
+- useEffect
+- useRef
+- useMemo  
+hooks只能放在函数组件中（或自定义hook）最外层不可放在if for 等  
+useEffect 1:08:50
