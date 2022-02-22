@@ -5,7 +5,7 @@ jSX javascript+xml 给JavaScript添加XML的语法扩展
 html超文本编辑语言  
 xml自定义标记语言
 ## JSX本质是什么？
-虚拟DOM树  
+createElement()  虚拟DOM树  
 create-react-app CRA 官方脚手架
 react 17 和之前版本在使用时的差异：react 17中增加了JSX-runtime，可以之间将JSX 转换成虚拟dom。如果模块中只使用到了JSX的话可以不引人react
 ## JSX 注意事项：
@@ -50,4 +50,29 @@ updater更新数据 function/object
 1.正常情况下，在一个操作中多次调用setState react会合并这些更新，只更新一次组件  
 state是不可变值修改state的唯一办法是调用setState根据原有的state映射出一个新的state  
 setState 在批更新的机制下表现为异步，否则为同步  
-setState 可以控制的方法中(react的声明周期中，react事件)表现为异步，在微任务中及DOM中表现为同步  1:21:00
+setState 可以控制的方法中(react的声明周期中，react事件)表现为异步，在微任务中及DOM中表现为同步 
+## 生命周期16.4版本之后  
+挂载阶段(mout):  从组件初始化-->组件构建的视图已经渲染到DOM树中  
+constructor：组件初始化  
+  -static getDerivedStateFromProps(props)将props中的内容关联到state中  
+  -注意this问题  
+  -render构建虚拟DOM  
+  -componentDidMount 组件完成挂载 
+   --处理副作用（DOM操作，数据请求）  
+更新阶段(update)：从组件开始更新-->组件对应的DOM视图更新完成
+    --调用setState会进行组件更新
+    --React父组件更新会引起子组件进行更新 
+    static getDerivedStateFromProps(nextProps，nextState)  
+    shouldComponentUpdate()  
+    render()  
+    getSnapshotBeforeUpdate(prevProps，prevState)  
+    componentDidMount  
+
+卸载阶段(unMount)：组件从DOM中移除  
+context 用于实现跨组件信息传递  
+provider 用于向包在provider中子孙后代进行信息传递，在provider的 value属性中，定义想要传递的信息  
+将provider对应的context对象，绑定在类的contextType属性中，组件实例化是就会查找类的contextType属性，并将对应的context中接收数据，放入到context数据中  
+## 函数组件  
+function 组件名（props）{
+    return 要构造的虚拟DOM
+} 注意：函数组件中，没有this(this为underfind)在16.7之前函数组件中没有声明周期和state 所以又被称只为纯渲染组件或无状态组件  
