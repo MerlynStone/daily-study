@@ -92,4 +92,58 @@ react 16.8新增的功能，无须编写类即可使用状态和其他React功�
 - useRef
 - useMemo  
 hooks只能放在函数组件中（或自定义hook）最外层不可放在if for 等  
-useEffect 1:08:50
+useEffect（副作用DOM操作，数据请求）---主要用来处理组件中的副作用逻辑，用于替代声明周期，类似于Vue中的watch  
+useEffect(()=>{
+  effect:副作用函数
+  return()=>{
+    cleanup 清理函数
+  }
+},[input]) input依赖参数  
+挂载阶段：从上到下执行函数组件，如果碰到useeffect将其中的的effect存储到一个队列中，当组件挂载函数挂载完成之后按照队列顺序执行effect函数，并接收cleanup函数存贮到以后新的队列   
+更新阶段：从上到下执行函数组件，如果碰到useeffect将其中的的effect存储到一个队列中，当组件更新完成之后，会将之前存执的cleanup函数队列按照顺序执行，然后执行effect队列，并将新的effect存贮到新的队列时。在更新阶段会观察依赖参数的值有么有变化，如果不变化就不执行对象的cleanup和effect
+卸载阶段：找到之前存执的cleanup函数队列，依次执行  
+依赖参数：null 组件每次更新都执行  
+[] 组件更新不执行  
+[1,2,3]只要有一个更新就执行
+常见副作用处理的地方：  
+1.componentDidMount: 
+2.componentDidUpdate:
+3.componentWillMount:
+```js
+const isMount = useRef(false)
+useEffect(()=>{
+  // 挂载完成及更新完成之后执行
+});
+useEffect(()=>{
+  if(isMount.current){
+    // 组件更新完成
+  } else{
+    isMount.current=true
+  }
+});
+useEffect(()=>{
+  // 挂载完成及更新完成之后执行
+  return()=>{
+    // 组件即将卸载执行
+  }
+}[]);
+ ```
+useRef  
+- 类似createRef  
+- 除了可以保存实例之外，还可以保存组件更新前的一些数据
+    - 当ref存贮的是数据时，数据不会随着组件的更新而自动更新
+```js
+const pCountEl = useRef(); // <p ref={pCountEl}></p>
+const preCount = useRef(count);
+useEffect(()=>{
+  console.log(pCountEl.current.innerHTML)
+  console.log(preCount.current) //
+  preCount.current = count  //手动更新
+}[count])
+```
+## meno 
+用于优化父组件更新引起的子组件更新问题  
+memo本质是一个高阶组件
+NewCmp = memo(Cmp,compare:()=>false|true)  
+调用memo会返回一个新的组件（b组件），调用新组件，新组件内部会调用我们传入的组件（a组件），当父组件更新时，b组件会调用compare函数，如果该函数返回值为false，则更新a组件  ，否则不更新a组件  
+高阶组件：一个普通函数，该函数有一个特征，参数接收一个组件，并返回一个新组件  
