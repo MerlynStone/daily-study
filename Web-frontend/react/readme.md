@@ -147,3 +147,75 @@ memo本质是一个高阶组件
 NewCmp = memo(Cmp,compare:()=>false|true)  
 调用memo会返回一个新的组件（b组件），调用新组件，新组件内部会调用我们传入的组件（a组件），当父组件更新时，b组件会调用compare函数，如果该函数返回值为false，则更新a组件  ，否则不更新a组件  
 高阶组件：一个普通函数，该函数有一个特征，参数接收一个组件，并返回一个新组件  
+useMemo  
+```js
+const price = useMemo(()=>{
+  return ()=>{
+    return count*18
+  }
+},[count])
+// 只更新count对应的视图 性能优化向
+```
+useMemo：当依赖参数有变化时，执行相应函数，并返回函数的返回值-类似vue computed 计算属性  
+useCallback-useMemo进化版  
+useMemo  
+```js
+const price = useCallback(()=>{
+  return count*18
+},[count])
+// 只更新count对应的视图 性能优化向
+```
+### 自定义hook
+```js
+function useScroll(){
+  const [y, setY] = useState(0);
+  useEffect(()=>{
+    setY(window.scrollY);
+    window.onscroll=()=>{
+      setY(window.scrollY);
+    }
+    return ()=>{
+      window.onscroll=null
+    },[]);
+  };
+  return [y,(newY)=>{
+    window.scrollTo(window.scrollY,newY)
+    setY(y)
+  }];
+}
+export {useScroll}
+// 使用
+const Y = useScroll();
+```
+## redux
+## react-router 
+版本之间api使用方法变化很大以https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md  
+默认匹配 url以当前path为开始时则匹配  
+exact精准匹配 url===path||url===path/    
+strict严格匹配 url===path 必须基于exact精准匹配  
+多路径匹配[]  
+动态路由   
+history action： pop：地址栏直接输入地址或刷新，或从其他站点跳转过来  
+```js
+// 路由鉴权  封装组件
+<Route ... render={(=>{
+  if(user){
+    return AboutDetail
+  } else{
+    return 404
+  }
+})} />
+```
+useHistory  获取history对象  
+useLocation 获取location对象  
+useParms  获取动态路由参数  
+useRouteMatch  获取match对象  
+ 
+## 修改或添加CRA环境中webpack配置
+- 运行 npm run eject
+- -使用第三方工具来对CRA中webpack配置做扩展
+- craco 
+   - 安装
+- react-app-rewired
+- customize-cra  
+## 封装功能组件 第七章7节antd 1:49:20 路由表
