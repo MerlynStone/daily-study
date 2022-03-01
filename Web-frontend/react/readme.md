@@ -40,16 +40,16 @@ react 17 和之前版本在使用时的差异：react 17中增加了JSX-runtime�
 在react 中数据永远只能自上向下进行传递，如果子级向父级传递则需要在父级中定义相关的回调方法，然后讲回调方法传递给子级，子级调用父级的回调来向父级进行通信。(或者使用三方库)  
 setState(updater,[callback])  
 updater更新数据 function/object
--function  返回值是更新的状态
--object 要更新的状态
+-function  返回值是更新的状态  
+-object 要更新的状态  
 -callback 更新成功后的回调function  
 -批处理 react通常会集齐一批需要更新的状态，然后一次性更新来保证渲染的性能  
--浅合并 Object.assign()
--调用setState之后 会触发声明周期，重新渲染组件
-批处理：
+-浅合并 Object.assign()  
+-调用setState之后 会触发声明周期，重新渲染组件  
+批处理：  
 1.正常情况下，在一个操作中多次调用setState react会合并这些更新，只更新一次组件  
 state是不可变值修改state的唯一办法是调用setState根据原有的state映射出一个新的state  
-setState 在批更新的机制下表现为异步，否则为同步  
+setState 在批更新的机制下表现为异步，否则为同步   
 setState 可以控制的方法中(react的声明周期中，react事件)表现为异步，在微任务中及DOM中表现为同步 
 ## 生命周期16.4版本之后  
 挂载阶段(mout):  从组件初始化-->组件构建的视图已经渲染到DOM树中  
@@ -57,11 +57,11 @@ constructor：组件初始化
   -static getDerivedStateFromProps(props)将props中的内容关联到state中  
   -注意this问题  
   -render构建虚拟DOM  
-  -componentDidMount 组件完成挂载 
+  -componentDidMount 组件完成挂载  
    --处理副作用（DOM操作，数据请求）  
-更新阶段(update)：从组件开始更新-->组件对应的DOM视图更新完成
-    --调用setState会进行组件更新
-    --React父组件更新会引起子组件进行更新 
+更新阶段(update)：从组件开始更新-->组件对应的DOM视图更新完成  
+    --调用setState会进行组件更新  
+    --React父组件更新会引起子组件进行更新   
     static getDerivedStateFromProps(nextProps，nextState)  
     shouldComponentUpdate()  
     render()  
@@ -74,41 +74,41 @@ provider 用于向包在provider中子孙后代进行信息传递，在provider�
 将provider对应的context对象，绑定在类的contextType属性中，组件实例化是就会查找类的contextType属性，并将对应的context中接收数据，放入到context数据中  
 ## 函数组件  
 接收一个props参数返回一个reactNodes  
-function 组件名（props）{
-    return 要构造的虚拟DOM
+function 组件名（props）{  
+   return 要构造的虚拟DOM  
 } 注意：函数组件中，没有this(this为underfind)在16.7之前函数组件中没有声明周期和state 所以又被称只为纯渲染组件或无状态组件  
 -使用函数组件时，尽量减少在函数中声明子函数，否则组件每次更新时都会重新创建这个函数  
 React hooks（钩子）  
 react 16.8新增的功能，无须编写类即可使用状态和其他React功能   
 *** 函数组件更新，会重新执行整个函数  
 ### 常用hook
-- useState
-  const [state,setState] = useState(initialState)  
-  const [状态,修改状态的方法] = useState(初始值)
-  - 在同一个组件中可以使用useState定义多个状态
-  - 注意useState返回的状态是引用类型，setState方法不会进行对象合并
-  - 注意useState返回的setState方法同样是异步方法
-- useEffect
-- useRef
-- useMemo  
+- useState  
+  const [state,setState] = useState(initialState)    
+  const [状态,修改状态的方法] = useState(初始值)  
+  - 在同一个组件中可以使用useState定义多个状态  
+  - 注意useState返回的状态是引用类型，setState方法不会进行对象合并  
+  - 注意useState返回的setState方法同样是异步方法  
+- useEffect  
+- useRef  
+- useMemo   
 hooks只能放在函数组件中（或自定义hook）最外层不可放在if for 等  
 useEffect（副作用DOM操作，数据请求）---主要用来处理组件中的副作用逻辑，用于替代声明周期，类似于Vue中的watch  
-useEffect(()=>{
-  effect:副作用函数
-  return()=>{
-    cleanup 清理函数
-  }
+useEffect(()=>{  
+  effect:副作用函数  
+  return()=>{  
+    cleanup 清理函数  
+  }  
 },[input]) input依赖参数  
 挂载阶段：从上到下执行函数组件，如果碰到useeffect将其中的的effect存储到一个队列中，当组件挂载函数挂载完成之后按照队列顺序执行effect函数，并接收cleanup函数存贮到以后新的队列   
-更新阶段：从上到下执行函数组件，如果碰到useeffect将其中的的effect存储到一个队列中，当组件更新完成之后，会将之前存执的cleanup函数队列按照顺序执行，然后执行effect队列，并将新的effect存贮到新的队列时。在更新阶段会观察依赖参数的值有么有变化，如果不变化就不执行对象的cleanup和effect
+更新阶段：从上到下执行函数组件，如果碰到useeffect将其中的的effect存储到一个队列中，当组件更新完成之后，会将之前存执的cleanup函数队列按照顺序执行，然后执行effect队列，并将新的effect存贮到新的队列时。在更新阶段会观察依赖参数的值有么有变化，如果不变化就不执行对象的cleanup和effect  
 卸载阶段：找到之前存执的cleanup函数队列，依次执行  
 依赖参数：null 组件每次更新都执行  
 [] 组件更新不执行  
 [1,2,3]只要有一个更新就执行
 常见副作用处理的地方：  
-1.componentDidMount: 
-2.componentDidUpdate:
-3.componentWillMount:
+1.componentDidMount:  
+2.componentDidUpdate:  
+3.componentWillMount:  
 ```js
 const isMount = useRef(false)
 useEffect(()=>{
@@ -143,8 +143,8 @@ useEffect(()=>{
 ```
 ## meno 
 用于优化父组件更新引起的子组件更新问题  
-memo本质是一个高阶组件
-NewCmp = memo(Cmp,compare:()=>false|true)  
+memo本质是一个高阶组件  
+NewCmp = memo(Cmp,compare:()=>false|true)    
 调用memo会返回一个新的组件（b组件），调用新组件，新组件内部会调用我们传入的组件（a组件），当父组件更新时，b组件会调用compare函数，如果该函数返回值为false，则更新a组件  ，否则不更新a组件  
 高阶组件：一个普通函数，该函数有一个特征，参数接收一个组件，并返回一个新组件  
 useMemo  
