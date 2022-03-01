@@ -218,4 +218,37 @@ useRouteMatch  获取match对象
    - 安装
 - react-app-rewired
 - customize-cra  
-## 封装功能组件 第七章7节antd 1:49:20 路由表
+## 封装功能组件 
+```js
+// 路由表
+const routes = [
+  {
+    path:['/'],['/home'],
+    exact:true,
+    render(props){
+      return <HomeView {...props} />
+    }
+  },
+  {
+    path:['/getstart'],
+    exact:true,
+    render(props){
+      return <Get StartView {...props} />
+    }
+  },
+];
+export {routes}
+// 使用
+{routes.map(item,index)=>{
+  return <Route key={index} exact={item.exact} path={item.paht} render={(props)=>{
+    return item.render(props)
+  }}>
+}}
+```
+### 基于Hooks的异步请求
+
+### 渲染组件（Render Props）
+术语“render props”是指一种简单的技术，用于使用一个值为函数的props在React组件之间的代码共享，带有渲染属性（Render Props）的组件需要一个返回React元素并调用它的函数，而不是实现自己的渲染逻辑
+### 高阶组件
+### 路由守卫
+### 路由按需加载
