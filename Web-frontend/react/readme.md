@@ -252,3 +252,72 @@ export {routes}
 ### 高阶组件
 ### 路由守卫
 ### 路由按需加载
+
+### React-router 6
+```js
+
+import { BrowserRouter as Router, Routes, Route, Link, Outlet, useParams, useNavigate } from "react-router-dom";
+export default function App() {
+  return (
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="product" element={<Product />} >
+              <Route path=":id" element={<ProductDetail />} >
+              </Route>
+            </Route>
+            <Route path="*" element={<NoMatch />} />
+          </Route>
+        </Routes>
+      </Router>
+    </div>
+  );
+}
+function Layout() {
+  return (
+    <div>
+      <h1>Layout</h1>
+      <Link to='/'>首页</Link>
+      <Link to='/product'>商品</Link>
+      <Outlet />
+      // 用在父路由中，这样在渲染的子路由的时候，内部嵌套的UI也会被渲染，如果父路由是精确匹配，<outlet>则会渲染一个标记index的子路由，如果没有index的子路由那就什么都不渲染。
+    </div>
+  )
+}
+function Home() {
+  return (
+    <div>
+      home
+    </div>
+  )
+}
+function Product() {
+  return (
+    <div>
+      Product
+      <Link to='/product/123'>商品123</Link>
+      <Outlet />
+
+    </div>
+  )
+}
+function ProductDetail() {
+  const parms = useParams()
+  const navigate = useNavigate()
+  return (
+    <div>
+      productDetail{parms.id}
+      <button onClick={() => { navigate('/') }}>go home</button>
+    </div>
+  )
+}
+function NoMatch() {
+  return (
+    <div>
+      NoMatch
+    </div>
+  )
+}
+```
