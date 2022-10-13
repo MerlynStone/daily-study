@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{message}}
+        <div>{{message2}}</div>
+    </div>
+</body>
+<script>
+    class Vue {
+        constructor(opts) {
+            this.$options = opts
+            this._data = opts.data
+            this.compiler(opts)
+        }
+        compiler(opts) {
+            let el = document.querySelector(opts.el)
+            this.compilerNodes(el)
+        }
+        compilerNodes(el) {
+            let childNodes = el.childNodes
+            childNodes.forEach(node => {
+                if (node.nodeType === 1) {
+                    // 元素
+                    this.compilerNodes(node)// 递归
+                    console.log(node)
+                } else if (node.nodeType === 3) {
+                    // 文本
+                    let textContent = node.textContent
+                    let reg = /\{\{\s*([^\{\}\s]+)\s*\}\}/
+                    console.log(RegExp.$1)
+                    if (reg.test(textContent)) {
+                        node.textContent = node.textContent.replace(reg, this._data[RegExp.$1])
+                    }
+                }
+
+            });
+        }
+    }
+</script>
+<script>
+    // 1.把数据初次渲染到试图（基于dom）
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            message: "信息1",
+            message2: "信息2",
+        }
+    })
+    console.log(vm)
+</script>
+
+
+</html>

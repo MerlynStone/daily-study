@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{message}}
+        <div>{{message2}}</div>
+    </div>
+</body>
+<script>
+    class Vue extends EventTarget {
+        constructor(opts) {
+            super()
+            this.$options = opts
+            this.observe(opts.data)
+            this._data = opts.data
+            this.compiler(opts)
+        }
+        observe(data) {
+            let _this = this
+            Object.keys(data).forEach(key => {
+                let value = data[key]
+                Object.defineProperty(data, key, {
+                    configurable: true,
+                    enumerable: true,
+                    get() {
+                        return value
+                        // return data[key] 死循环
+                    },
+                    set(newValue) {
+                        // 数据改变 视图重新渲染  以key值做事件 深层遍历麻烦，耦合性较高
+                        _this.dispatchEvent(new CustomEvent(key, {
+                            detail: newValue // 传参数
+                        }))
+                        value = newValue
+                        // return data[key]=newValue 死循环
+                    }
+                })
+
+            })
+        }
+        compiler(opts) {
+            let el = document.querySelector(opts.el)
+            this.compilerNodes(el)
+        }
+        compilerNodes(el) {
+            let childNodes = el.childNodes
+            childNodes.forEach(node => {
+                if (node.nodeType === 1) {
+                    // 元素
+                    this.compilerNodes(node)// 递归
+                    console.log(node)
+                } else if (node.nodeType === 3) {
+                    // 文本
+                    let textContent = node.textContent
+                    let reg = /\{\{\s*([^\{\}\s]+)\s*\}\}/
+                    console.log(RegExp.$1)
+                    if (reg.test(textContent)) {
+                        let $1 = RegExp.$1
+                        node.textContent = node.textContent.replace(reg, this._data[RegExp.$1])
+                        this.addEventListener($1, (e) => {
+                            // 触发了set操作 视图需要更新
+                            console.log('触发了set操作 视图需要更新', e.detail)
+                            let newValue = e.detail// 接收参数
+                            let oldValue = this._data[$1]
+                            node.textContent = node.textContent.replace(oldValue, newValue)
+                        })
+                    }
+                }
+
+            });
+        }
+    }
+</script>
+<script>
+    // 1.把数据初次渲染到试图（基于dom）
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            message: "信息1",
+            message2: "信息2",
+        }
+    })
+    // 2.数据响应式--如何知道数据变化（数据劫持）---》数据改变如何改变试图（观察者模式或者发布订阅）
+    console.log(vm)
+    setTimeout(() => {
+        vm._data.message = '修改之后的数据'
+    }, 1000)
+</script>
+
+
+</html>
