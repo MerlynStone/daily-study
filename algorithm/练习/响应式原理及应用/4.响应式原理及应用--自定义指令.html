@@ -13,6 +13,8 @@
         {{message}}
         <div>{{message2}}</div>
         <input type="text" v-model="message">
+        <div v-html="messageHtml">ddd</div>
+        <div v-text="message"></div>
 
     </div>
 </body>
@@ -95,6 +97,18 @@
                             node.addEventListener('input', e => {
                                 this._data[attrValue] = e.target.value
                             })
+                        } else if (attrName === 'v-text') {
+                            node.innerText = this._data[attrValue]
+                            new Watcher(this._data, attrValue, (newValue) => {
+                                node.innerText = newValue
+                            })
+
+                        } else if (attrName === 'v-html') {
+                            node.innerHTML = this._data[attrValue]
+                            new Watcher(this._data, attrValue, (newValue) => {
+                                node.innerHTML = newValue
+                            })
+
                         }
                     })
                     // 元素
@@ -133,6 +147,7 @@
         data: {
             message: "信息1",
             message2: "信息2",
+            messageHtml: "<h1>Html</h1>",
         }
     })
     // 2.数据响应式--如何知道数据变化（数据劫持）---》数据改变如何改变试图（观察者模式或者发布订阅）
