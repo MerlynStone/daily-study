@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id="root"></div>
+
+<body>
+</body>
+<script>
+    let state = []
+    let index = 0
+    function useState(init) {
+        let nowIndex = index++
+        if (state[nowIndex] === undefined) {
+            state[nowIndex] = init
+        }
+        return [state[nowIndex], (newSate) => {
+            state[nowIndex] = newSate
+            render()
+        }]
+    }
+    render()
+    function render() {
+        index = 0
+        let root = document.querySelector('#root')
+        let [count, setCount] = useState(1)
+        let btn = document.createElement('button')
+        btn.innerHTML = count;
+        btn.onclick = () => {
+            setCount(count + 1)
+        }
+        let [count1, setCount1] = useState(1)
+        let btn1 = document.createElement('button')
+        btn1.innerHTML = count1;
+        btn1.onclick = () => {
+            setCount1(count1 + 1)
+        }
+        root.innerHTML = ''
+        root.appendChild(btn)
+        root.appendChild(btn1)
+    }
+</script>
+
+</html>
