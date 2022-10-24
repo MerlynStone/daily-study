@@ -66,7 +66,7 @@ constructor：组件初始化
     shouldComponentUpdate()  
     render()  
     getSnapshotBeforeUpdate(prevProps，prevState)  
-    componentDidMount  
+    componentDidUpdate  
 
 卸载阶段(unMount)：组件从DOM中移除  
 context 用于实现跨组件信息传递  
@@ -147,7 +147,7 @@ memo本质是一个高阶组件
 NewCmp = memo(Cmp,compare:()=>false|true)    
 调用memo会返回一个新的组件（b组件），调用新组件，新组件内部会调用我们传入的组件（a组件），当父组件更新时，b组件会调用compare函数，如果该函数返回值为false，则更新a组件  ，否则不更新a组件  
 高阶组件：一个普通函数，该函数有一个特征，参数接收一个组件，并返回一个新组件  
-useMemo  
+useMemo  返回函数的返回值
 ```js
 const price = useMemo(()=>{
   return ()=>{
@@ -158,7 +158,7 @@ const price = useMemo(()=>{
 ```
 useMemo：当依赖参数有变化时，执行相应函数，并返回函数的返回值-类似vue computed 计算属性  
 useCallback-useMemo进化版  
-useMemo  
+useCallback  返回函数
 ```js
 const price = useCallback(()=>{
   return count*18
