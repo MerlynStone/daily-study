@@ -64,7 +64,7 @@ class LinkedList {
         }
     }
     removeAt(position) { // 移除某个位置的元素
-        if (position >= -q && position <= this.length) {
+        if (position >= 0 && position <= this.length) {
             let current = this.head
             let index = 0
 
