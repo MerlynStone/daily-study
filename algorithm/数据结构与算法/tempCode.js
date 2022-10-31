@@ -182,3 +182,79 @@ var reversseList = function (head) {
         curr = next
     }
 }
+
+class BinarySearchTree {
+    constructor() {
+        this.root = null
+        this.insertNode = function (node, newNode) {
+            if (newNode.key < node.key) {
+                if (node.left === null) {
+                    node.left = newNode
+                } else {
+                    this.insertNode(node.left, newNode)
+                }
+            } else {
+                if (node.right === null) {
+                    node.right = newNode
+                } else {
+                    this.insertNode(node.right, newNode)
+                }
+            }
+        }
+        this.print = function (value) {
+            console.log(value)
+        }
+        // 中序遍历
+        this.inOrderTraverseNode = function (node, callback) {
+            if (node !== null) {
+                this.inOrderTraverseNode(node.left, callback)
+                callback(node.key)
+                this.inOrderTraverseNode(node.right, callback)
+            }
+        }
+        // 前序遍历
+        this.preOrderTraverseNode = function (node, callback) {
+            if (node !== null) {
+                callback(node.key)
+                this.preOrderTraverseNode(node.left, callback)
+                this.preOrderTraverseNode(node.right, callback)
+            }
+        }
+        // 后续遍历
+        this.postOrderTraverseNode = function (node, callback) {
+            if (node !== null) {
+                this.postOrderTraverseNode(node.left, callback)
+                this.postOrderTraverseNode(node.right, callback)
+                callback(node.key)
+            }
+        }
+    }
+    Node = class {
+        constructor(key) {
+            this.left = null
+            this.key = key
+            this.right = null
+        }
+    }
+    insert(key) {
+        let newNode = new this.Node(key)
+        if (this.root === null) {
+            this.root = newNode
+        } else {
+            this.insertNode(this.root, newNode)
+        }
+    }
+    inOrderTraverse(callback) {
+        this.inOrderTraverseNode(this.root, callback)
+    }
+    preOrderTraverse(callback) {
+        this.preOrderTraverseNode(this.root, callback)
+    }
+}
+let tree = new BinarySearchTree()
+tree.insert(11)
+tree.insert(7)
+tree.insert(15)
+tree.insert(5)
+console.log(tree)
+tree.inOrderTraverse(tree.print)

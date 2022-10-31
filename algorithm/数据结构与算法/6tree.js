@@ -20,6 +20,20 @@ class BinarySearchTree {
         this.print = function (value) {
             console.log(value)
         }
+        this.searchTree = function (node, key) {
+            if (node === null) {
+                return false
+            }
+            if (key < node.key) {
+                return this.searchTree(node.left, key)
+            } else if (key > node.key) {
+                return this.searchTree(node.right, key)
+            } else {
+                // return true
+                return node
+            }
+
+        }
         // 中序遍历从小到大--排序应用
         this.inOrderTraverseNode = function (node, callback) {
             if (node !== null) {
@@ -28,7 +42,7 @@ class BinarySearchTree {
                 this.inOrderTraverseNode(node.right, callback)
             }
         }
-        // 前序遍历从小到大--排序应用
+        // 前序遍历
         this.preOrderTraverseNode = function (node, callback) {
             if (node !== null) {
                 callback(node.key)
@@ -36,7 +50,7 @@ class BinarySearchTree {
                 this.preOrderTraverseNode(node.right, callback)
             }
         }
-        // 后序遍历从小到大--排序应用
+        // 后序遍历
         this.postOrderTraverseNode = function (node, callback) {
             if (node !== null) {
                 this.postOrderTraverseNode(node.left, callback)
@@ -69,12 +83,40 @@ class BinarySearchTree {
     postOrderTraverse(callback) {
         this.postOrderTraverseNode(this.root, callback)
     }
+    min() {
+        let current = this.root
+        if (current !== null) {
+            // while (current.left) {
+            while (current && current.left != null) {
+                current = current.left
+            }
+            return current.key
+        }
+        return null
+    }
+    max() {
+        let current = this.root
+        if (current !== null) {
+            while (current && current.right != null) {
+                current = current.right
+            }
+            return current.key
+        }
+        return null
+    }
+    search(key) {
+        return this.searchTree(this.root, key)
+    }
 }
 let tree = new BinarySearchTree()
 tree.insert(11); tree.insert(7); tree.insert(15); tree.insert(5); tree.insert(3); tree.insert(9); tree.insert(8)
 tree.insert(10); tree.insert(13); tree.insert(12); tree.insert(14); tree.insert(20); tree.insert(18); tree.insert(25);
 tree.insert(6)
 console.log(tree)
-console.log(tree.inOrderTraverse(tree.print))
-console.log(tree.preOrderTraverse(tree.print))
-console.log(tree.postOrderTraverse(tree.print))
+// console.log(tree.inOrderTraverse(tree.print))
+// console.log(tree.preOrderTraverse(tree.print))
+// console.log(tree.postOrderTraverse(tree.print))
+console.log(tree.min())
+console.log(tree.max())
+console.log(tree.search(11))
+
