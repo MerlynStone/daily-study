@@ -38,8 +38,8 @@ class LinkedList {
                     previous = current // 插入节点的前一项
                     current = current.next
                 }
-                previous.next = node
                 node.next = current
+                previous.next = node
             }
             this.length++
             return true
