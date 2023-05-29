@@ -76,7 +76,6 @@ const [destroyOnChild,setDestroyChild]=useState(false)
         className="m-modal-wrap"
         style={{ display: visible ? "block" : "none" }}
       >
-        {destroyOnChild}hh
         {destroyOnChild ? null : (
           <div className="m-modal-content" style={{ width }}>
             <div className="m-modal-header">
